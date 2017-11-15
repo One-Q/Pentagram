@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour {
+public class HealthEnemy : MonoBehaviour {
 
     public int initHealth;
     public int currentHealth;
@@ -14,7 +14,7 @@ public class Health : MonoBehaviour {
 
     public void takeDamage(int damage){
         if (!isDead){
-            Debug.Log("Ennemy take " + damage + "damages !");
+            Debug.Log("Enemy take " + damage + "damages !");
             currentHealth -= damage;
             if (currentHealth == 0)
                 Die();
@@ -24,7 +24,7 @@ public class Health : MonoBehaviour {
 
     void Die(){
         isDead = true;
-        Debug.Log("Ennemy is dead !");
+        Debug.Log("Enemy is dead !");
         Destroy(gameObject);
     }
 	
