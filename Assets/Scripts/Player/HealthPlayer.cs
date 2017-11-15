@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour {
+public class HealthPlayer : MonoBehaviour {
 
 	public int initHealth;
 	private int currentHealth;
