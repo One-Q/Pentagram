@@ -7,16 +7,16 @@ public class EnnemyAttack : MonoBehaviour {
     int attackDamage = 10;
 
     GameObject player;
-    Health playerHealth;
-    Health ennemyHealth;
+	HealthPlayer playerHealth;
+	HealthEnemy ennemyHealth;
     bool playerInRange;
     float timer;
 
     void Awake()
     {
         player = (GameObject) GameObject.FindGameObjectWithTag("Player");
-        playerHealth = player.GetComponent<Health>();
-        ennemyHealth = this.GetComponent<Health>();
+		playerHealth = player.GetComponent<HealthPlayer>();
+		ennemyHealth = this.GetComponent<HealthEnemy>();
 
     }
 
@@ -55,10 +55,8 @@ public class EnnemyAttack : MonoBehaviour {
     {
         timer = 0f;
         Debug.Log("fight ! ");
-        if(playerHealth.currentHealth > 0)
-        {
-            playerHealth.takeDamage(attackDamage);
-        }
+            playerHealth.TakeDamage(attackDamage);
+
     }
 
 }
