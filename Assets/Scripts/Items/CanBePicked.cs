@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class CanBePicked : MonoBehaviour {
 
+	public bool hasPlayer=false;
+
 	private GameObject player;
-	private bool hasPlayer=false;
-	private bool beingCarried=false;
+	private GameObject childObj;
 
 	void OnTriggerEnter(Collider col){
 		if (col.CompareTag ("Player")) {
 			hasPlayer = true;
+			childObj.SetActive (true);
 			print (hasPlayer);
 		}
 	}
@@ -18,19 +20,23 @@ public class CanBePicked : MonoBehaviour {
 	void OnTriggerExit(Collider col){
 		if (col.CompareTag ("Player")) {
 			hasPlayer = false;
+			childObj.SetActive (false);
 			print (hasPlayer);
 		}
 	}
 
 	void OnEnable(){
 		player = GameObject.FindGameObjectWithTag ("Player");
+		childObj = transform.GetChild (0).gameObject;
 	}
-		
 
-	void Update(){
-		if (hasPlayer && Input.GetMouseButtonDown(0)) {
-			Destroy (gameObject);
-			beingCarried = true;
+	public void GiveToPlayer(){
+		Destroy (gameObject);
+	}
+
+	void OnMouseDown(){
+		if (hasPlayer) {
+			GiveToPlayer ();
 		}
 	}
 }
