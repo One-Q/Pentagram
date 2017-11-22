@@ -31,6 +31,7 @@ public class CanBePicked : MonoBehaviour {
 	}
 
 	public void GiveToPlayer(){
+
 		Destroy (gameObject);
 	}
 
