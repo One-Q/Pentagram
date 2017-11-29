@@ -17,7 +17,7 @@ public class ProjectileProperties : MonoBehaviour {
 	void OnCollisionEnter(Collision col){
 
 		HealthEnemy enemy = col.gameObject.GetComponent<HealthEnemy>();
-		if (enemy || col.gameObject.name == "Obstacle") {
+		if (enemy || col.gameObject.tag == "Walls") {
 			if (enemy) {
 				enemy.takeDamage (damage);
 			}

@@ -41,7 +41,7 @@ public class RayShootTriggerable : MonoBehaviour {
 
 
 			HealthEnemy enemy = col.gameObject.GetComponent<HealthEnemy>();
-			if (enemy || col.gameObject.name == "Obstacle")
+			if (enemy || col.gameObject.tag == "Walls")
 			{
 				laserLine.SetPosition(1, hit.point); 
 				if (enemy) {
