@@ -8,12 +8,12 @@ public class Inventory : MonoBehaviour {
 	public GameObject player;
 	public GameObject inventoryPanel;
 
+	private Canvas inventory;
+
 	// Use this for initialization
 	void Start () {
-		if(inventoryPanel == null)
-			inventoryPanel = GameObject.Find("Inventory Panel");
-		inventoryPanel.SetActive (activation);
-		player = GameObject.FindGameObjectWithTag ("Player");	
+		inventory = GetComponent<Canvas> ();
+		inventory.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -24,7 +24,8 @@ public class Inventory : MonoBehaviour {
 			if (activation) {
 				
 			}
-			inventoryPanel.SetActive (activation);
+
+			inventory.enabled = activation;
 		}
 	}
 }
