@@ -6,13 +6,13 @@ public class CanBePicked : MonoBehaviour {
 
 	public bool hasPlayer=false;
 
-	public int nbSlots = 20;
-	public GameObject inventoryCanvas;
-	public Transform itempSlotPrefab;
-	public Transform inventorySlots;
+	[SerializeField]
+	private GameObject inventory;
 
 	private GameObject player;
 	private GameObject childObj;
+
+	private bool isPaused = false;
 
 	void OnTriggerEnter(Collider col){
 		if (col.CompareTag ("Player")) {
@@ -40,24 +40,22 @@ public class CanBePicked : MonoBehaviour {
 		Destroy (gameObject);
 	}
 
+	public void PutInInventory(GameObject go){
+		inventory.GetComponent<Inventory> ().PutInInventory (go);
+	}
+
 	void OnMouseDown(){
-		if (hasPlayer) {
+		if (hasPlayer && !isPaused) {
 			GiveToPlayer ();
 		}
 	}
+		
+	private void OnPauseGame(){
+		isPaused = true;
+	}
 
-	public void PutInInventory(GameObject item){
-		if (inventorySlots.childCount < nbSlots) {
-			Transform newItem = Instantiate (itempSlotPrefab, Vector3.zero, Quaternion.identity) as Transform;
-			newItem.SetParent (inventorySlots, false);
-			ItemSlot itemInventory = newItem.GetComponent<ItemSlot> ();
-			ItemScene itemScene = item.GetComponent<ItemScene> ();
-			itemInventory.itemDescription = itemScene.itemDescription;
-			itemInventory.itemID = itemScene.itemID;
-			itemInventory.itemType = itemScene.itemType;
-			itemInventory.itemSprite = itemScene.itemSprite;
-		} else {
-			Debug.Log ("Pas de place");
-		}
+
+	private void OnResumeGame(){
+		isPaused = false;
 	}
 }

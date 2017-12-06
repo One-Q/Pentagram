@@ -14,7 +14,7 @@ public class AbilityCoolDown : MonoBehaviour {
 	private float coolDownDuration;
 	private float nextReadyTime;
 	private float coolDownTimeLeft;
-
+	private bool isPaused = false;
 
 	void Start () 
 	{
@@ -36,7 +36,7 @@ public class AbilityCoolDown : MonoBehaviour {
 	void Update () 
 	{
 		bool coolDownComplete = (Time.time > nextReadyTime);
-		if (coolDownComplete) 
+		if (coolDownComplete && !isPaused) 
 		{
 			AbilityReady ();
 			ManaPlayer mana = weaponHolder.GetComponent<ManaPlayer> ();
@@ -78,5 +78,13 @@ public class AbilityCoolDown : MonoBehaviour {
 	
 
 		ability.TriggerAbility ();
+	}
+
+	private void OnPauseGame(){
+		isPaused = true;
+	}
+
+	private void OnResumeGame(){
+		isPaused = false;
 	}
 }
