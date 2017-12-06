@@ -1,0 +1,16 @@
+{
+  "items" : [
+    {
+      "type": "Epee",
+      "id": "001",
+      "sprite": "test.png",
+      "description": "C'est une épée"
+    },
+    {
+      "type": "Hache",
+      "id": "002",
+      "sprite": "test.png",
+      "description": "C'est une hache"
+    }
+  ]
+}
