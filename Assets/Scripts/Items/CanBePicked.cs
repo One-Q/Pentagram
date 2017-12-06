@@ -6,6 +6,11 @@ public class CanBePicked : MonoBehaviour {
 
 	public bool hasPlayer=false;
 
+	public int nbSlots = 20;
+	public GameObject inventoryCanvas;
+	public Transform itempSlotPrefab;
+	public Transform inventorySlots;
+
 	private GameObject player;
 	private GameObject childObj;
 
@@ -31,13 +36,28 @@ public class CanBePicked : MonoBehaviour {
 	}
 
 	public void GiveToPlayer(){
-
+		PutInInventory (gameObject);
 		Destroy (gameObject);
 	}
 
 	void OnMouseDown(){
 		if (hasPlayer) {
 			GiveToPlayer ();
+		}
+	}
+
+	public void PutInInventory(GameObject item){
+		if (inventorySlots.childCount < nbSlots) {
+			Transform newItem = Instantiate (itempSlotPrefab, Vector3.zero, Quaternion.identity) as Transform;
+			newItem.SetParent (inventorySlots, false);
+			ItemSlot itemInventory = newItem.GetComponent<ItemSlot> ();
+			ItemScene itemScene = item.GetComponent<ItemScene> ();
+			itemInventory.itemDescription = itemScene.itemDescription;
+			itemInventory.itemID = itemScene.itemID;
+			itemInventory.itemType = itemScene.itemType;
+			itemInventory.itemSprite = itemScene.itemSprite;
+		} else {
+			Debug.Log ("Pas de place");
 		}
 	}
 }
