@@ -6,8 +6,13 @@ public class CanBePicked : MonoBehaviour {
 
 	public bool hasPlayer=false;
 
+	[SerializeField]
+	private GameObject inventory;
+
 	private GameObject player;
 	private GameObject childObj;
+
+	private bool isPaused = false;
 
 	void OnTriggerEnter(Collider col){
 		if (col.CompareTag ("Player")) {
@@ -31,13 +36,26 @@ public class CanBePicked : MonoBehaviour {
 	}
 
 	public void GiveToPlayer(){
-
+		PutInInventory (gameObject);
 		Destroy (gameObject);
 	}
 
+	public void PutInInventory(GameObject go){
+		inventory.GetComponent<Inventory> ().PutInInventory (go);
+	}
+
 	void OnMouseDown(){
-		if (hasPlayer) {
+		if (hasPlayer && !isPaused) {
 			GiveToPlayer ();
 		}
+	}
+		
+	private void OnPauseGame(){
+		isPaused = true;
+	}
+
+
+	private void OnResumeGame(){
+		isPaused = false;
 	}
 }
