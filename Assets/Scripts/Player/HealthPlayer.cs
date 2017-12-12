@@ -7,7 +7,7 @@ public class HealthPlayer : MonoBehaviour {
 
 	public int initHealth;
 	public int maxHealth;
-	private int currentHealth;
+    [HideInInspector] public int currentHealth;
 
 	public ObjectBehaviourList dieBehaviour;
 
