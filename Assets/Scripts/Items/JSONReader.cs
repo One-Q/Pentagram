@@ -2,42 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using SimpleJSON;
+using LitJson;
 
 public class JSONReader : MonoBehaviour {
 
-	public Object jsonFile;
 	[SerializeField]
 	public Dictionary<string, string> dico = new Dictionary<string, string>();
 
-	void Start(){
-		dico.Add ("001", "sdqsddq");
-		dico.Add ("002", "sqddsdsdsdsdsd");
-		WriteItems ();
-	}
-
-	public ItemSlot ReadItem(string name) {
-		string jsonString = jsonFile.ToString ();
+	public  ItemSlot ReadItem(string name) {
+		/*string jsonString = jsonFile.ToString ();
 		JSONNode json = JSON.Parse (jsonString);
 		JSONNode currentJson = json [name];
 		Debug.Log (currentJson);
-		return new ItemSlot ();
+		return new ItemSlot ();*/
+		return null;
 	}
 
-	public ItemSlot ReadItems() {
-		string jsonString = jsonFile.ToString ();
-		JSONNode json = JSON.Parse (jsonString);
-		JSONNode currentJson = json ["items"];
-		JSONArray array = currentJson.AsArray;
-		foreach (var item in array) {
-			Debug.Log (item);
-		}
-		return new ItemSlot ();
+	public JsonData ReadItems() {
+		string jsonString = File.ReadAllText (@"./save.json");
+		JsonData itemData =JsonMapper.ToObject (jsonString);
+		return itemData;
 	}
 
 	public void WriteItems(){
 		// GameObject inventory = GameObject.Find("Inventory Panel");
-		string json = JsonUtility.ToJson (dico);
-		Debug.Log (json);
+		/*string json = JsonUtility.ToJson (dico);
+		Debug.Log (json);*/
+	}
+
+	public void WriteItem(ScriptableObject obj){
+		string itemJson = JsonMapper.ToJson (obj);
+		Debug.Log ("Apres");
+		File.WriteAllText (@"./save.json", itemJson);
 	}
 }
