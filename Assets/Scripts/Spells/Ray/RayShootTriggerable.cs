@@ -26,8 +26,10 @@ public class RayShootTriggerable : MonoBehaviour {
 		//Declare a raycast hit to store information about what our raycast has hit.
 		RaycastHit hit;
 
-		laserLine.SetPosition(0, player.position);
-		laserLine.SetPosition(1, player.position + player.forward * weaponRange); 
+		Vector3 rayPosition = player.position;
+		rayPosition.y += 2;
+		laserLine.SetPosition(0, rayPosition);
+		laserLine.SetPosition(1, rayPosition + player.forward * weaponRange); 
 
 		//Set the start position for our visual effect for our laser to the position of gunEnd
 

@@ -7,6 +7,6 @@ public class ExitGame : MonoBehaviour {
 
 	public void ExitTheGame(){
 		//No Save!
-		SceneManager.LoadScene("Menu");
+		Application.Quit();
 	}
 }

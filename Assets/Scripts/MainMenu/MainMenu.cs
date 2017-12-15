@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour {
 
+	public GameObject dontDestroy;
+
 	void Update(){
 		bool exist = File.Exists (@"./save.json");
 
@@ -14,6 +16,8 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	public void PlayGame(){
+		dontDestroy.GetComponent<PersistentObject> ().newGame = true;
+		DontDestroyOnLoad (dontDestroy);
 		//Take the next in the index
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
 	}
@@ -23,6 +27,8 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	public void ContinueGame(){
+		dontDestroy.GetComponent<PersistentObject> ().newGame = false;
+		DontDestroyOnLoad (dontDestroy);
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
 
 	}
