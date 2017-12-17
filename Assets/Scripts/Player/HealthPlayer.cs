@@ -7,19 +7,20 @@ public class HealthPlayer : MonoBehaviour {
 
 	public int initHealth;
 	public int maxHealth;
-    [HideInInspector] public int currentHealth;
 
-	public ObjectBehaviourList dieBehaviour;
+    public int currentHealth;
+    [HideInInspector] public bool isDead;
 
+    public ObjectBehaviourList dieBehaviour;
 	public GameObject damageDealer;
-
 	public Slider sliderHealth;
+    
 
 
 	void OnEnable(){
 		currentHealth = initHealth;
-		sliderHealth.maxValue = maxHealth;
-		sliderHealth.value = currentHealth;
+		//sliderHealth.maxValue = maxHealth;
+		//sliderHealth.value = currentHealth;
 	}
 
 	private void SliderChangeValue(){
@@ -40,16 +41,18 @@ public class HealthPlayer : MonoBehaviour {
 
 		currentHealth -= damage;
 
-		SliderChangeValue ();
+		//SliderChangeValue ();
 
-		if (currentHealth <= 0) {
-			SliderDisabled ();
+		if (currentHealth <= 0 && !isDead) {
+			//SliderDisabled ();
 			Die ();
 		}
 	}
 
 	public void Die(){
+        isDead = true;
 		if (dieBehaviour) {
+            gameObject.SetActive(false);
 			dieBehaviour.Execute (gameObject);
 		}
 	}

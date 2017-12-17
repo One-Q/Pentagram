@@ -13,9 +13,10 @@ public class playerAttack : MonoBehaviour {
     GameObject enemy;
     HealthPlayer playerHealth;
     HealthEnemy enemyHealth;
-    bool enemyInRange;
+    bool enemyInRange, isHiting;
     float timer;
     Transform target = null;
+
 
 
 
@@ -25,9 +26,24 @@ public class playerAttack : MonoBehaviour {
     }
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && enemyInRange)
         {
-            //Fire();
+            SetHiting(true);
+        }
+        if (Input.GetButtonUp("Fire1") && !enemyInRange)
+        {
+            SetHiting(false);
+        }
+    }
+
+
+    public void SetHiting(bool mode)
+    {
+        isHiting = mode;
+        StopAllCoroutines();
+        if (mode)
+        {
+            StartCoroutine(FireCoroutine());
         }
     }
 
@@ -36,26 +52,18 @@ public class playerAttack : MonoBehaviour {
         if (col.CompareTag("Enemy"))
         {
             enemy = (GameObject)GameObject.FindGameObjectWithTag("Enemy");
-            Debug.Log("enemy is in range !");
             enemyHealth = col.GetComponent<HealthEnemy>();
             target = col.transform;
             transform.LookAt(target);
 
             enemyInRange = true; // le joueur est entré dans la zone
-            Attack();
         }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        
     }
 
     void OnTriggerExit(Collider col)
     {
         if (col.CompareTag("Enemy"))
         {
-            Debug.Log("enemy is out range !");
             enemyInRange = false; // le joueur est sorti de la zone
         }
     }
@@ -63,33 +71,35 @@ public class playerAttack : MonoBehaviour {
     void Attack()
     {
         timer = 0f;
-        Debug.Log("player attack ! ");
         GameObject damageSource = gameObject;
         enemyHealth.takeDamage(attackDamage, damageSource);
+        if (enemyHealth.isDead)
+        {
+            enemyInRange = false;
+        }
 
     }
 
     public void Fire()
     {
         timer += Time.deltaTime;
-        if (playerHealth.currentHealth > 0)
+        if (!playerHealth.isDead && !enemyHealth.isDead)
         {
-            Debug.Log("health ?=0 ");
-            distance = Vector3.Distance(target.position, transform.position);
-            if (distance < 3.0f)
+            if (timer >= timeBetweenAttacks && !enemyHealth.isDead && enemyInRange)
             {
-                Debug.Log("distance ");
-                if (timer >= timeBetweenAttacks && enemyInRange && enemyHealth.currentHealth > 0)
-                {
-                    Debug.Log("before attack ");
-                    // can attack
-                    Attack();
-                }
+                // can attack
+                Attack();
             }
-            else
-            {
-                Debug.Log("not yet in view ");
-            }
+        }
+    }
+
+    IEnumerator FireCoroutine()
+    {
+        while (true)
+        {
+            if (isHiting)
+                Fire();
+            yield return new WaitForSeconds(timeBetweenAttacks);
         }
     }
 

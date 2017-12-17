@@ -16,6 +16,9 @@ public class CameraFollowing : MonoBehaviour {
 
 		void Update () 
 		{
-			transform.position = obj.transform.position + offset;
-		}
+            if(obj != null)
+        {
+            transform.position = obj.transform.position + offset;
+        }
+    }
 	}

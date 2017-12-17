@@ -14,6 +14,8 @@ public class EnemyStats : ScriptableObject
     public float attackForce = 1f;
     public int attackDamage = 5;
 
+    public int initHealth = 10;
+
     public float searchDuration = 4f;
     public float searchingTurnSpeed = 120f;
 }

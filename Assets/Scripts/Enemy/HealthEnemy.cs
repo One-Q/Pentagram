@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class HealthEnemy : MonoBehaviour {
 
-    public int initHealth;
-    public int currentHealth;
+    [HideInInspector] public int currentHealth;
+    public EnemyStats enemyStats;
+
 
     public ObjectBehaviourList dieBehaviour;
-    public GameObject damageDealer;
+    [HideInInspector] public GameObject damageDealer;
+    [HideInInspector] public bool isDead;
 
 
 
     public void OnEnable(){
-        currentHealth = initHealth;
+        currentHealth = enemyStats.initHealth;
+        isDead = false;
     }
 
     public void takeDamage(int damage, GameObject source = null)
@@ -24,16 +27,19 @@ public class HealthEnemy : MonoBehaviour {
         }
         Debug.Log("Enemy take " + damage + "damages !");
         currentHealth -= damage;
-        if (currentHealth == 0)
+        if (currentHealth <= 0 && !isDead)
             Die();
         
         
     }
 
     void Die(){
+        isDead = true;
+
         Debug.Log("Enemy is dead !");
         if (dieBehaviour)
         {
+            gameObject.SetActive(false);
             dieBehaviour.Execute(gameObject);
         }
     }

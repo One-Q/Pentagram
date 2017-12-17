@@ -1,11 +1,8 @@
 ﻿using UnityEngine;
 
 public class EnnemyAttack : MonoBehaviour {
-    [SerializeField]
-    float timeBetweenAttacks = 0.5f;
-    [SerializeField]
-    int attackDamage = 10, minRange = 2, speed = 6;
-    
+
+    public EnemyStats enemyStats;
 
     GameObject player;
 	public HealthPlayer playerHealth;
@@ -27,16 +24,14 @@ public class EnnemyAttack : MonoBehaviour {
 
     }
    
-    /*void OnTriggerEnter (Collider col)
+    void OnTriggerEnter (Collider col)
     {
         if(col.CompareTag("Player"))
         {
             playerHealth = player.GetComponent<HealthPlayer>();
-            target = col.transform;
-            transform.LookAt(target);
-            Debug.Log("player is in range !");
-
+           // Debug.Log("player is in range !");
             playerInRange = true; // le joueur est entré dans la zone
+            target = col.transform;
         }
     }
 
@@ -44,49 +39,42 @@ public class EnnemyAttack : MonoBehaviour {
     {
         if (other.gameObject == player)
         {
-            Debug.Log("player is out range !");
+          //  Debug.Log("player is out range !");
             playerInRange = false; // le joueur est sorti de la zone
         }
     }
-    */
-    /*void Update()
+    
+    void Update()
     {
         timer += Time.deltaTime;
 
-        if (playerHealth.currentHealth > 0)
+        if (playerHealth.currentHealth > 0 && !playerHealth.isDead && playerInRange)
         {
 
-            var distance = Vector3.Distance(target.position, transform.position);
+            float distance = Vector3.Distance(target.position, transform.position);
  
             if (distance < 3.0f)
             {
-                if (timer >= timeBetweenAttacks && playerInRange && ennemyHealth.currentHealth > 0)
+                if (timer >= enemyStats.attackRate && playerInRange && ennemyHealth.currentHealth > 0)
                 {
                     // can attack
                     Attack();
                 }
             }
-            else if (distance < 15.0f)
-            {   
-                //move towards the player
-                Walk();
-            }
-
-
-
-
+           
         }
-    }*/
+    }
 
     public void Attack()
     {
         timer = 0f;
-        
         GameObject damageSource = gameObject;
-        if (player !=null && playerInRange)
+       // Debug.Log(" enemy can fight ! ");
+       // Debug.Log("playerInRange ? " + playerInRange);
+        if (playerInRange && !playerHealth.isDead)
         {
-            Debug.Log("fight ! ");
-            playerHealth.TakeDamage(attackDamage, damageSource);
+           // Debug.Log("fight ! ");
+            playerHealth.TakeDamage(enemyStats.attackDamage, damageSource);
 
         }
 
