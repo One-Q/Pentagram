@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class ExitGame : MonoBehaviour {
 
 	public void ExitTheGame(){
-		//No Save!
-		Application.Quit();
+		SceneManager.LoadScene ("Menu");
 	}
 }

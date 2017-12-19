@@ -19,19 +19,13 @@ public class HealthPlayer : MonoBehaviour {
 
 	void OnEnable(){
 		currentHealth = initHealth;
-		//sliderHealth.maxValue = maxHealth;
-		//sliderHealth.value = currentHealth;
+		sliderHealth.maxValue = maxHealth;
+		sliderHealth.value = currentHealth;
 	}
 
 	private void SliderChangeValue(){
 		sliderHealth.value = currentHealth;
 	}
-
-	private void SliderDisabled (){
-		Transform t = sliderHealth.transform.GetChild (1);
-		t.gameObject.SetActive (false);
-	}
-		
 
 
 	public void TakeDamage(int damage , GameObject source = null ){
@@ -41,10 +35,9 @@ public class HealthPlayer : MonoBehaviour {
 
 		currentHealth -= damage;
 
-		//SliderChangeValue ();
+		SliderChangeValue ();
 
 		if (currentHealth <= 0 && !isDead) {
-			//SliderDisabled ();
 			Die ();
 		}
 	}
