@@ -10,6 +10,7 @@ public class EnnemyAttack : MonoBehaviour {
     bool playerInRange;
     float timer;
     private Transform target = null;
+	public Animator animator;
 
     private void Start()
     {
@@ -47,6 +48,8 @@ public class EnnemyAttack : MonoBehaviour {
     void Update()
     {
         timer += Time.deltaTime;
+		animator.SetBool("Moving", true);
+		animator.SetBool ("Running", true);
 
         if (playerHealth.currentHealth > 0 && !playerHealth.isDead && playerInRange)
         {
@@ -74,10 +77,12 @@ public class EnnemyAttack : MonoBehaviour {
         if (playerInRange && !playerHealth.isDead)
         {
            // Debug.Log("fight ! ");
+			animator.SetTrigger("Attack1Trigger");
             playerHealth.TakeDamage(enemyStats.attackDamage, damageSource);
 
         }
-
+		animator.SetBool("Moving", true);
+		animator.SetBool ("Running", true);
     }
 
    /* void Walk()
