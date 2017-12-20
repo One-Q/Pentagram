@@ -8,8 +8,8 @@ public class playerAttack : MonoBehaviour {
     float timeBetweenAttacks = 5f, distance;
     [SerializeField]
     int attackDamage = 10;
-
-
+	[SerializeField]
+	Animator animator;
     GameObject enemy;
     HealthPlayer playerHealth;
     HealthEnemy enemyHealth;
@@ -29,26 +29,13 @@ public class playerAttack : MonoBehaviour {
     {
         if (Input.GetButtonDown("Fire1") && enemyInRange)
         {
-            SetHiting(true);
+			isHiting = true;
         }
         if (Input.GetButtonUp("Fire1") && !enemyInRange)
         {
-            SetHiting(false);
+			isHiting = false;
         }
     }
-
-
-    public void SetHiting(bool mode)
-    {
-        isHiting = mode;
-        
-        if (mode)
-        {
-            StartCoroutine(FireCoroutine());
-        }
-        StopAllCoroutines();
-    }
-
     void OnTriggerEnter(Collider col)
     {
         if (col.CompareTag("Enemy"))
@@ -59,6 +46,7 @@ public class playerAttack : MonoBehaviour {
             transform.LookAt(target);
 
             enemyInRange = true; // le joueur est entré dans la zone
+			StartCoroutine (FireCoroutine ());
         }
     }
 
@@ -67,6 +55,7 @@ public class playerAttack : MonoBehaviour {
         if (col.CompareTag("Enemy"))
         {
             enemyInRange = false; // le joueur est sorti de la zone
+			StopAllCoroutines();
         }
     }
 
@@ -89,7 +78,7 @@ public class playerAttack : MonoBehaviour {
         {
             if (!enemyHealth.isDead && enemyInRange)
             {
-                // can attack
+				animator.SetTrigger ("Attack1Trigger");
                 Attack();
             }
         }
@@ -99,9 +88,11 @@ public class playerAttack : MonoBehaviour {
     {
         while (true)
         {
-            if (isHiting)
-                Fire();
-            yield return new WaitForSeconds(timeBetweenAttacks);
+			if (isHiting) {
+				Fire();
+				yield return new WaitForSeconds(timeBetweenAttacks);
+			}
+			yield return new WaitForSeconds(0.1f);
         }
     }
 
