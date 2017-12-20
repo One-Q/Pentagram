@@ -5,7 +5,7 @@ using UnityEngine;
 public class playerAttack : MonoBehaviour {
 
     [SerializeField]
-    float timeBetweenAttacks = 0.5f, distance;
+    float timeBetweenAttacks = 5f, distance;
     [SerializeField]
     int attackDamage = 10;
 
@@ -24,6 +24,7 @@ public class playerAttack : MonoBehaviour {
     {
         playerHealth = this.GetComponent<HealthPlayer>();
     }
+
     void Update()
     {
         if (Input.GetButtonDown("Fire1") && enemyInRange)
@@ -40,11 +41,12 @@ public class playerAttack : MonoBehaviour {
     public void SetHiting(bool mode)
     {
         isHiting = mode;
-        StopAllCoroutines();
+        
         if (mode)
         {
             StartCoroutine(FireCoroutine());
         }
+        StopAllCoroutines();
     }
 
     void OnTriggerEnter(Collider col)
@@ -82,10 +84,10 @@ public class playerAttack : MonoBehaviour {
 
     public void Fire()
     {
-        timer += Time.deltaTime;
+        
         if (!playerHealth.isDead && !enemyHealth.isDead)
         {
-            if (timer >= timeBetweenAttacks && !enemyHealth.isDead && enemyInRange)
+            if (!enemyHealth.isDead && enemyInRange)
             {
                 // can attack
                 Attack();
