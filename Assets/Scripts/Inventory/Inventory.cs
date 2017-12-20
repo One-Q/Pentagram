@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour {
 
+	//Comment
 	bool activation = false;
 	public GameObject player;
 	public GameObject inventoryPanel;
