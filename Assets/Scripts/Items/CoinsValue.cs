@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class CoinsValue : MonoBehaviour {
 
-
+	//From Ennemies
 	public GameObject parent;
 
-	//TODO GameObject change to Monster
 
 	public int value;
 
-	// Use this for initialization
 	void Start () {
 		value = GenerateValue ();
 	}
@@ -19,8 +17,9 @@ public class CoinsValue : MonoBehaviour {
 	private int GenerateValue(){
 		int value;
 		if (parent) {
-			//From Monsters
-			if (parent.tag == "Boss") {
+			//From Ennemies
+			string type = parent.GetComponent<EnemyStats>().type;
+			if (type == "Legendary") {
 				value = Random.Range (200, 300);
 			} else if (parent.tag == "Epic") {
 				value = Random.Range (100, 200);
