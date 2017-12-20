@@ -37,4 +37,9 @@ public class PauseGame : MonoBehaviour {
 			}
 
 	}
+
+    void OnDestroy()
+    {
+        Time.timeScale = 1;
+    }
 }

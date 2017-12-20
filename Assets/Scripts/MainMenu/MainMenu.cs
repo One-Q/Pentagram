@@ -16,8 +16,8 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	public void PlayGame(){
-		dontDestroy.GetComponent<PersistentObject> ().newGame = true;
-		DontDestroyOnLoad (dontDestroy);
+	//	dontDestroy.GetComponent<PersistentObject> ().newGame = true;
+	//	DontDestroyOnLoad (dontDestroy);
 		//Take the next in the index
 		SceneManager.LoadScene ("Level");
 	}
