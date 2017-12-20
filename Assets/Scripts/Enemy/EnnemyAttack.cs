@@ -12,27 +12,57 @@ public class EnnemyAttack : MonoBehaviour {
     private Transform target = null;
 	public Animator animator;
 
-    private void Start()
+    void Start()
     {
         ennemyHealth = this.GetComponent<HealthEnemy>();
+        player = (GameObject)GameObject.FindGameObjectWithTag("Player");
+        playerHealth = player.GetComponent<HealthPlayer>();
     }
 
     void Awake()
     {
-        player = (GameObject)GameObject.FindGameObjectWithTag("Player");
-        playerHealth = player.GetComponent<HealthPlayer>();
-        
+      
 
     }
    
-    void OnTriggerEnter (Collider col)
+    /*void OnTriggerEnter (Collider col)
     {
+        Debug.Log(col.name);
         if(col.CompareTag("Player"))
         {
+            player = (GameObject)GameObject.FindGameObjectWithTag("Player");
             playerHealth = player.GetComponent<HealthPlayer>();
-           // Debug.Log("player is in range !");
+            Debug.Log("player current life : " + playerHealth.currentHealth);
+            Debug.Log("player is in range !");
             playerInRange = true; // le joueur est entré dans la zone
             target = col.transform;
+        }
+    }*/
+
+    void OnTriggerStay(Collider col)
+    {
+        if (col.CompareTag("Player"))
+        {
+
+            player = col.gameObject;//(GameObject)GameObject.FindGameObjectWithTag("Player");
+            playerHealth = player.GetComponent<HealthPlayer>();
+            playerInRange = true; // le joueur est entré dans la zone
+            target = col.transform;
+
+            if (!playerHealth.isDead)
+            {
+                float distance = Vector3.Distance(target.position, transform.position);
+                if (distance < enemyStats.attackRange)
+                {
+                    if (timer >= enemyStats.attackRate && playerInRange && !ennemyHealth.isDead)
+                    {
+           
+                        // can attack
+                        Attack();
+                    }
+                }
+            }
+
         }
     }
 
@@ -50,33 +80,15 @@ public class EnnemyAttack : MonoBehaviour {
         timer += Time.deltaTime;
 		animator.SetBool("Moving", true);
 		animator.SetBool ("Running", true);
-
-        if (playerHealth.currentHealth > 0 && !playerHealth.isDead && playerInRange)
-        {
-
-            float distance = Vector3.Distance(target.position, transform.position);
- 
-            if (distance < 3.0f)
-            {
-                if (timer >= enemyStats.attackRate && playerInRange && ennemyHealth.currentHealth > 0)
-                {
-                    // can attack
-                    Attack();
-                }
-            }
-           
-        }
     }
 
     public void Attack()
     {
         timer = 0f;
         GameObject damageSource = gameObject;
-       // Debug.Log(" enemy can fight ! ");
-       // Debug.Log("playerInRange ? " + playerInRange);
+        Debug.Log("playerInRange ? " + playerInRange);
         if (playerInRange && !playerHealth.isDead)
         {
-           // Debug.Log("fight ! ");
 			animator.SetTrigger("Attack1Trigger");
             playerHealth.TakeDamage(enemyStats.attackDamage, damageSource);
 

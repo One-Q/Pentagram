@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     public List<Transform> wayPointsForAI;
-    private StateController m_StateController;
+    //private StateController m_StateController;
+    public Transform spawnPoint;                          
 
-    // public GameObject[] m_Instance;
+
     public GameObject Instance;
 
 
@@ -20,12 +21,8 @@ public class GameManager : MonoBehaviour {
 	
     public void SetupAI(List<Transform> wayPointList)
 	{
-        /*foreach (GameObject i in m_Instance)
-        {
-            m_StateController = i.GetComponent<StateController>();
-            m_StateController.SetupAI(true, wayPointList);
-        }*/
-        m_StateController = Instance.GetComponent<StateController>();
+        GameObject instance = Instantiate(Instance, spawnPoint.position, spawnPoint.rotation) as GameObject;
+        StateController m_StateController = instance.GetComponent<StateController>();
         m_StateController.SetupAI(true, wayPointList);
 
 
