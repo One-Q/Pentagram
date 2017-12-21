@@ -2,6 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PersistentObject : MonoBehaviour {
+public class PersistentObject : Singleton<PersistentObject> {
 	public bool newGame;
 }

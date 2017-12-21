@@ -9,6 +9,10 @@ public class MainMenu : MonoBehaviour {
 
 	public GameObject dontDestroy;
 
+	void Start(){
+		dontDestroy = GameObject.Find ("PersistentObject");
+	}
+
 	void Update(){
 		bool exist = File.Exists (@"./save.json");
 
@@ -16,8 +20,8 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	public void PlayGame(){
-	//	dontDestroy.GetComponent<PersistentObject> ().newGame = true;
-	//	DontDestroyOnLoad (dontDestroy);
+		dontDestroy.GetComponent<PersistentObject> ().newGame = true;
+		DontDestroyOnLoad (dontDestroy);
 		//Take the next in the index
 		SceneManager.LoadScene ("Level");
 	}
