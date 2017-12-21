@@ -25,29 +25,17 @@ public class EnnemyAttack : MonoBehaviour {
 
     }
    
-    /*void OnTriggerEnter (Collider col)
-    {
-        Debug.Log(col.name);
-        if(col.CompareTag("Player"))
-        {
-            player = (GameObject)GameObject.FindGameObjectWithTag("Player");
-            playerHealth = player.GetComponent<HealthPlayer>();
-            Debug.Log("player current life : " + playerHealth.currentHealth);
-            Debug.Log("player is in range !");
-            playerInRange = true; // le joueur est entré dans la zone
-            target = col.transform;
-        }
-    }*/
 
     void OnTriggerStay(Collider col)
     {
         if (col.CompareTag("Player"))
         {
 
-            player = col.gameObject;//(GameObject)GameObject.FindGameObjectWithTag("Player");
+            player = col.gameObject;
             playerHealth = player.GetComponent<HealthPlayer>();
             playerInRange = true; // le joueur est entré dans la zone
             target = col.transform;
+
 
             if (!playerHealth.isDead)
             {
@@ -56,7 +44,7 @@ public class EnnemyAttack : MonoBehaviour {
                 {
                     if (timer >= enemyStats.attackRate && playerInRange && !ennemyHealth.isDead)
                     {
-           
+                        transform.LookAt(target);
                         // can attack
                         Attack();
                     }
@@ -70,7 +58,6 @@ public class EnnemyAttack : MonoBehaviour {
     {
         if (other.gameObject == player)
         {
-          //  Debug.Log("player is out range !");
             playerInRange = false; // le joueur est sorti de la zone
         }
     }
@@ -96,17 +83,5 @@ public class EnnemyAttack : MonoBehaviour {
 		animator.SetBool("Moving", true);
 		animator.SetBool ("Running", true);
     }
-
-   /* void Walk()
-    {
-        if (target == null) return;
-        timer += Time.deltaTime;
-        transform.LookAt(target);
-
-        //float distance = Vector3.Distance(transform.position, target.position);
-        //ool tooClose = distance < minRange;
-        //Vector3 direction = tooClose ? Vector3.back : Vector3.forward;
-        //transform.Translate(direction * Time.deltaTime * speed);
-    }*/
 
 }
