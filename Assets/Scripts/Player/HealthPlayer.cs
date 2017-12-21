@@ -27,6 +27,17 @@ public class HealthPlayer : MonoBehaviour {
 		sliderHealth.value = currentHealth;
 	}
 
+	public void AddHealth(int value){
+		currentHealth += value;
+		UpdateHealthIfAboveMax ();
+		SliderChangeValue ();
+	}
+
+	public void UpdateHealthIfAboveMax (){
+		if (currentHealth > maxHealth) {
+			currentHealth = maxHealth;
+		}
+	}
 
 	public void TakeDamage(int damage , GameObject source = null ){
 		if (source) {

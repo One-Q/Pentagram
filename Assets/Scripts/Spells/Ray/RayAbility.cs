@@ -18,7 +18,7 @@ public class RayAbility : Ability {
 		rcShoot.gunDamage = gunDamage;
 		rcShoot.weaponRange = weaponRange;
 
-		rcShoot.laserLine.material = new Material (Shader.Find ("Unlit/Color"));
+
 		rcShoot.laserLine.material.color = laserColor;
 
 
