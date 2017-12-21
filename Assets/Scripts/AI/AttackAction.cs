@@ -22,8 +22,7 @@ public class AttackAction : Action
         {
             if (controller.CheckIfCountDownElapsed(controller.enemyStats.attackRate) && controller)
             {
-                //Debug.Log("Enemy attack !!!!!");
-               // Debug.Log("[action] player life: " + controller.enemyAttack.playerHealth.currentHealth);
+              
                 controller.enemyAttack.Attack();
             }
         }
