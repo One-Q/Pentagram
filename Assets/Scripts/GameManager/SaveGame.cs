@@ -8,7 +8,7 @@ public class SaveGame : MonoBehaviour {
 	public GameObject inventory;
 	public GameObject coinsField;
 	
-	public void SaveGameSettings(bool Quit){
+	public void SaveGameSettings(){
 		var length = inventory.transform.childCount;
 		DumbInventory dumbInventory = ScriptableObject.CreateInstance<DumbInventory> ();
 		Text value = coinsField.GetComponent<Text>();
