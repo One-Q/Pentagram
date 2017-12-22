@@ -18,13 +18,7 @@ public class EnnemyAttack : MonoBehaviour {
         player = (GameObject)GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<HealthPlayer>();
     }
-
-    void Awake()
-    {
-      
-
-    }
-   
+  
 
     void OnTriggerStay(Collider col)
     {
@@ -73,7 +67,6 @@ public class EnnemyAttack : MonoBehaviour {
     {
         timer = 0f;
         GameObject damageSource = gameObject;
-        Debug.Log("playerInRange ? " + playerInRange);
         if (playerInRange && !playerHealth.isDead)
         {
 			animator.SetTrigger("Attack1Trigger");

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     public List<Transform> wayPointsForAI;
-    //private StateController m_StateController;
     public Transform spawnPoint;                          
 
 

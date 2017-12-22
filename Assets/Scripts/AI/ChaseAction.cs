@@ -7,7 +7,6 @@ public class ChaseAction : Action
 {
     public override void Act(StateController controller)
     {
-        //Debug.Log("chase state !");
         Chase(controller);
     }
 

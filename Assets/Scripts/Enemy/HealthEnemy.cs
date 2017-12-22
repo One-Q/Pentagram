@@ -25,7 +25,6 @@ public class HealthEnemy : MonoBehaviour {
         {
             damageDealer = source;
         }
-        Debug.Log("Enemy take " + damage + "damages !");
         currentHealth -= damage;
         if (currentHealth <= 0 && !isDead)
             Die();
@@ -36,7 +35,6 @@ public class HealthEnemy : MonoBehaviour {
     void Die(){
         isDead = true;
 
-        Debug.Log("Enemy is dead !");
         if (dieBehaviour)
         {
             gameObject.SetActive(false);
