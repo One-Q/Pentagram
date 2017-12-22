@@ -15,8 +15,11 @@ public class MainMenu : MonoBehaviour {
 
 	void Update(){
 		bool exist = File.Exists (@"./save.json");
+		Debug.Log (SceneManager.GetActiveScene ().name);
+		if (SceneManager.GetActiveScene ().name == "Menu") {
+			GetComponentInChildren<Button> ().interactable = exist;
+		}
 
-		GetComponentInChildren<Button> ().interactable = exist;
 	}
 
 	public void PlayGame(){
