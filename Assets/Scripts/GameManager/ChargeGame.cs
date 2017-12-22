@@ -8,21 +8,23 @@ public class ChargeGame : MonoBehaviour {
 
 	public Transform itempSlotPrefab;
 	public Transform inventorySlots;
-	public GameObject valueCoins;
+	public GameObject valueScore;
 
 	private bool newGame;
 
 
 	void OnEnable(){
 		GameObject obj = GameObject.Find ("PersistentObject");
-		if (newGame) {
+		if (obj) {
 			newGame = obj.GetComponent<PersistentObject>().newGame;
 			if (!newGame) {
 				Debug.Log ("oui");
 				JsonData save = GetComponent<JSONReader> ().ReadItems ();
 				//To retrieve value of coins
-				int value = (int)save ["coins"];
-				valueCoins.GetComponent<Text> ().text = value + "";
+				int value = (int)save ["score"];
+				valueScore.GetComponent<Text> ().text = value + "";
+
+				Debug.Log (value);
 
 				//To retrieve array of items
 

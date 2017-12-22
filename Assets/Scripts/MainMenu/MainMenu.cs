@@ -9,15 +9,22 @@ public class MainMenu : MonoBehaviour {
 
 	public GameObject dontDestroy;
 
+	void Start(){
+		dontDestroy = GameObject.Find ("PersistentObject");
+	}
+
 	void Update(){
 		bool exist = File.Exists (@"./save.json");
+		Debug.Log (SceneManager.GetActiveScene ().name);
+		if (SceneManager.GetActiveScene ().name == "Menu") {
+			GetComponentInChildren<Button> ().interactable = exist;
+		}
 
-		GetComponentInChildren<Button> ().interactable = exist;
 	}
 
 	public void PlayGame(){
-	//	dontDestroy.GetComponent<PersistentObject> ().newGame = true;
-	//	DontDestroyOnLoad (dontDestroy);
+		dontDestroy.GetComponent<PersistentObject> ().newGame = true;
+		DontDestroyOnLoad (dontDestroy);
 		//Take the next in the index
 		SceneManager.LoadScene ("Level");
 	}

@@ -5,15 +5,15 @@ using UnityEngine;
 public class DumbInventory : ScriptableObject {
 
 	public List<DumbItem> inventory = new List<DumbItem>();
-	public int coins;
+	public int score;
 
-	public void Init(List<DumbItem> list, int coins){
+	public void Init(List<DumbItem> list, int score){
 		this.inventory = list;
-		this.coins = coins;
+		this.score = score;
 	}
 
-	public void Init(int coins){
-		this.coins = coins;
+	public void Init(int score){
+		this.score = score;
 	}
 
 	public void AddDumbItem(DumbItem obj){
